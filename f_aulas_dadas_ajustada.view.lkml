@@ -15,6 +15,7 @@ view: f_aulas_dadas_ajustada {
   }
 
   dimension: codturma {
+    primary_key: yes
     type: number
     sql: ${TABLE}.codturma ;;
   }
@@ -27,6 +28,10 @@ view: f_aulas_dadas_ajustada {
   dimension: aulas_dadas {
     type: number
     sql: ${TABLE}.aulas_dadas ;;
+  }
+
+  dimension: primary_key {
+    sql: row_number() over(partition by concat(${TABLE}.codturma,${TABLE}.semana_ano,${TABLE}.aulas_dadas)) ;;
   }
 
   set: detail {

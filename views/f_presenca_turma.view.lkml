@@ -18,6 +18,7 @@ view: f_presenca_turma {
         from mpv-looker-rede-municipal.Datalake.fPresenca_Turma
         group by 1,2
       ) ;;
+  datagroup_trigger: mvp_looker_datagroup
   }
 
   measure: count {
