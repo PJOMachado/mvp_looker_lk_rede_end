@@ -8,9 +8,8 @@ datagroup: mvp_looker_datagroup {
   max_cache_age: "10 hour"
 }
 
-persist_with: mvp_looker_datagroup
-
 explore: main {
+  persist_with: mvp_looker_datagroup
   join:  d_modalidade{
     type: left_outer
     sql_on: ${main.codmodalidade} = ${d_modalidade.codmodalidade} ;;
