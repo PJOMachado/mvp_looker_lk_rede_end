@@ -61,4 +61,9 @@ explore: main {
     sql_on: ${d_matriculas.cgmkey} = ${f_presenca_alunos.cgmkey} ;;
     relationship: many_to_many
   }
+  join: d_calendario {
+    type: left_outer
+    sql_on: ${f_aulas_dadas.semana_ano} = ${d_calendario.semana_do_ano} ;;
+    relationship: many_to_many
+  }
 }
