@@ -11,6 +11,7 @@ datagroup: mvp_looker_datagroup {
 persist_with: mvp_looker_datagroup
 
 explore: main {
+  label: "main"
   join: d_modalidade {
     type: left_outer
     sql_on: ${main.codmodalidade} = ${d_modalidade.codmodalidade} ;;
