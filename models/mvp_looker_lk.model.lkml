@@ -11,7 +11,6 @@ datagroup: mvp_looker_datagroup {
 persist_with: mvp_looker_datagroup
 
 explore: main {
-  label: "main"
   join: d_modalidade {
     type: left_outer
     sql_on: ${main.codmodalidade} = ${d_modalidade.codmodalidade} ;;
@@ -24,8 +23,8 @@ explore: main {
   }
   join: d_matrizcurricular {
     type: left_outer
-    sql_on: ${main.codmatriz} = ${d_matrizcurricular.codmatriz} ;;
-    relationship: one_to_many
+    sql_on: ${d_matrizcurricular.codmatriz} = ${main.codmatriz} ;;
+    relationship: many_to_one
   }
   join: d_disciplina {
     type: left_outer
@@ -34,33 +33,27 @@ explore: main {
   }
   join: f_aulas_dadas {
     type: left_outer
-    sql_on: ${main.codturma} = ${f_aulas_dadas.codturma} ;;
-    relationship: one_to_many
+    sql_on: ${f_aulas_dadas.codturma} = ${main.codturma} ;;
+    relationship: many_to_one
   }
-  join: f_presenca_turma {
+  join: f_presenca_turma_off {
     type: left_outer
-    sql_on: ${main.codturma} = ${f_presenca_turma.cod_turma} ;;
-    relationship: one_to_many
-  }
-  join: d_calendario {
-    type: left_outer
-    sql_on: ${f_aulas_dadas.semana_ano} = ${d_calendario.semana_do_ano}
-      or ${f_presenca_turma.semana_ano} = ${d_calendario.semana_do_ano} ;;
-    relationship: many_to_many
+    sql_on: ${f_presenca_turma_off.cod_turma} = ${main.codturma} ;;
+    relationship: many_to_one
   }
   join: d_matriculas {
     type: left_outer
-    sql_on: ${main.codturma} = ${d_matriculas.codturma} ;;
-    relationship: one_to_many
+    sql_on: ${d_matriculas.codturma} = ${main.codturma} ;;
+    relationship: many_to_one
   }
   join: f_amparo_legal {
     type: left_outer
-    sql_on: ${d_matriculas.cgmkey} = ${f_amparo_legal.cgmkey} ;;
+    sql_on: ${f_amparo_legal.cgmkey} = ${d_matriculas.cgmkey} ;;
     relationship: many_to_many
   }
   join: f_presenca_alunos {
     type: left_outer
-    sql_on: ${d_matriculas.cgmkey} = ${f_presenca_alunos.cgmkey} ;;
+    sql_on: ${f_presenca_alunos.cgmkey} = ${d_matriculas.cgmkey} ;;
     relationship: many_to_many
   }
 }
