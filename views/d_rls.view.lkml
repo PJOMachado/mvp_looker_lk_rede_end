@@ -1,77 +1,48 @@
 
-view: d_main {
+view: d_rls {
   derived_table: {
-    sql: with rls as
-      (
-        select
-          email,
-          codmec,
-          nivel,
-          row_number() over(partition by email order by nivel desc) as key
-        from
-        (
-          select
-            EmailUsuario as email,
-            codmec,
-            1 as nivel
-          from mpv-looker-rede-municipal.Datalake.dRLS_Escola
-          union all
-          select
-            EmailUsuario as email,
-            codmec,
-            2 as nivel
-          from mpv-looker-rede-municipal.Datalake.dRLS_Municipal
-          union all
-          select
-            EmailUsuario as email,
-            codNucleoRegional as codmec,
-            3 as nivel
-          from mpv-looker-rede-municipal.Datalake.dRLS_NRE
-        )
-      ),
-      main as
-      (
-        select
-          r.email,
-          r.nivel as nivel_acesso,
-          dt.*
-        from rls as r
-        join mpv-looker-rede-municipal.Datalake.dTurmas as dt
-        on r.codmec = (
-          case
-            when r.nivel = 3 then dt.codnucleoregional
-            else dt.codmec
-          end
-                      )
-        where r.key = 1
-      )
-      select
-       ma.*,
-       dm.descrmodalidade,
-       de.descretapamodalidade,
-       dmc.coddisciplina,
-       dmc.chsemanaldisciplina,
-       dmc.nomecursosae30,
-       dmc.descrcomposicao,
-       dmc.descrabrevcomposicao,
-       dmc.codmatrizcurricular,
-       dc.nomedisciplina,
-       dma.cgmkey,
-       dma.cgmaluno,
-       dma.`Nome Aluno` as nomealuno,
-       dma.descrsituacaomatricula,
-       dma.MedGeral as medgeral
-      from main as ma
-      left join mpv-looker-rede-municipal.Datalake.dModalidade as dm
-        on ma.codmodalidade = dm.codmodalidade
-      left join mpv-looker-rede-municipal.Datalake.dEtapaModalidade as de
-        on ma.codetapamodalidade = de.codetapamodalidade
-      right join mpv-looker-rede-municipal.Datalake.dMatrizcurricular as dmc
-        on ma.codmatriz = dmc.codmatriz
-      left join mpv-looker-rede-municipal.Datalake.dDisciplina as dc
-        on dmc.coddisciplina = dc.coddisciplina
-      right join mpv-looker-rede-municipal.Datalake.dMatriculas as dma
-        on ma.codturma = dma.codturma;;
+    sql:
+with rls as
+(
+  select
+    email,
+    codmec,
+    nivel,
+    row_number() over(partition by email order by nivel desc) as key
+  from
+  (
+    select
+      EmailUsuario as email,
+      codmec,
+      1 as nivel
+    from mpv-looker-rede-municipal.Datalake.dRLS_Escola
+    union all
+    select
+      EmailUsuario as email,
+      codmec,
+      2 as nivel
+    from mpv-looker-rede-municipal.Datalake.dRLS_Municipal
+    union all
+    select
+      EmailUsuario as email,
+      codNucleoRegional as codmec,
+      3 as nivel
+    from mpv-looker-rede-municipal.Datalake.dRLS_NRE
+  )
+)
+  select
+    r.email,
+    r.nivel as nivel_acesso,
+    dt.*
+  from rls as r
+  join mpv-looker-rede-municipal.Datalake.dTurmas as dt
+  on r.codmec = (
+    case
+      when r.nivel = 3 then dt.codnucleoregional
+      else dt.codmec
+    end
+                )
+  where r.key = 1;;
   datagroup_trigger: mvp_looker_datagroup
   }
 

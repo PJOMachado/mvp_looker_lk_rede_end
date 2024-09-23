@@ -1,5 +1,5 @@
 view: d_matriculas {
-  sql_table_name: `Datalake.dMatriculas` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dMatriculas` ;;
 
   dimension: cgmaluno {
     type: number
@@ -29,7 +29,9 @@ view: d_matriculas {
     type: string
     sql: ${TABLE}.Turma ;;
   }
-  measure: count {
-    type: count
+  measure: alunos {
+    type: count_distinct
+    sql:${TABLE}.cgmaluno ;;
+    filters: [cgmaluno: "not null"]
   }
 }

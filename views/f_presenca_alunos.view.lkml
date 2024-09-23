@@ -1,5 +1,5 @@
 view: f_presenca_alunos {
-  sql_table_name: `Datalake.fPresencaAlunos` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.fPresencaAlunos` ;;
 
   dimension: cgmkey {
     type: string

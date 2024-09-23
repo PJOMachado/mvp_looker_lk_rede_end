@@ -1,5 +1,5 @@
 view: d_rls_nre {
-  sql_table_name: `Datalake.dRLS_NRE` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dRLS_NRE` ;;
 
   dimension: cod_nucleo_regional {
     type: number

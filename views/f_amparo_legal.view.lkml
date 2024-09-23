@@ -1,5 +1,5 @@
 view: f_amparo_legal {
-  sql_table_name: `Datalake.fAmparoLegal` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.fAmparoLegal` ;;
 
   dimension: amparo_legal_qtd {
     type: number
@@ -34,7 +34,8 @@ view: f_amparo_legal {
     type: string
     sql: ${TABLE}.SemanaInicio ;;
   }
-  measure: count {
-    type: count
+  measure: amparo_legal {
+    type: sum
+    sql: ${TABLE}.Amparo_Legal_QTD ;;
   }
 }

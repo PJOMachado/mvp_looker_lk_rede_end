@@ -1,5 +1,5 @@
 view: d_disciplina {
-  sql_table_name: `Datalake.dDisciplina` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dDisciplina` ;;
 
   dimension: coddisciplina {
     type: number

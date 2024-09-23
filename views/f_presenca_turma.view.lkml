@@ -42,6 +42,12 @@ view: f_presenca_turma {
     sql: ${TABLE}.med ;;
   }
 
+  measure: presenca_turma {
+    type: number
+    value_format_name: percent_2
+    sql: avg(${TABLE}.med) / 100;;
+  }
+
   set: detail {
     fields: [
         cod_turma,

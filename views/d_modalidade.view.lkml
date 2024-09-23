@@ -1,5 +1,5 @@
 view: d_modalidade {
-  sql_table_name: `Datalake.dModalidade` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dModalidade` ;;
 
   dimension: codmodalidade {
     type: number

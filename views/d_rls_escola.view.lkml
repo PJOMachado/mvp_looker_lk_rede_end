@@ -1,5 +1,5 @@
 view: d_rls_escola {
-  sql_table_name: `Datalake.dRLS_Escola` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dRLS_Escola` ;;
 
   dimension: codmec {
     type: number

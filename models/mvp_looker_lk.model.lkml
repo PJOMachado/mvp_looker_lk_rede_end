@@ -8,23 +8,24 @@ datagroup: mvp_looker_datagroup {
   max_cache_age: "10 hour"
 }
 
-persist_with: mvp_looker_datagroup
+explore: teste {}
 
-explore: main {
-  label: "main"
+explore: d_rls {
+  persist_with: mvp_looker_datagroup
+  label: "Main"
   join: d_modalidade {
     type: left_outer
-    sql_on: ${main.codmodalidade} = ${d_modalidade.codmodalidade} ;;
+    sql_on: ${d_rls.codmodalidade} = ${d_modalidade.codmodalidade} ;;
     relationship: many_to_one
   }
   join: d_etapa_modalidade {
     type: left_outer
-    sql_on: ${main.codetapamodalidade} = ${d_etapa_modalidade.codetapamodalidade} ;;
+    sql_on: ${d_rls.codetapamodalidade} = ${d_etapa_modalidade.codetapamodalidade} ;;
     relationship: many_to_one
   }
   join: d_matrizcurricular {
     type: left_outer
-    sql_on: ${d_matrizcurricular.codmatriz} = ${main.codmatriz} ;;
+    sql_on: ${d_matrizcurricular.codmatriz} = ${d_rls.codmatriz};;
     relationship: many_to_one
   }
   join: d_disciplina {
@@ -34,17 +35,17 @@ explore: main {
   }
   join: f_aulas_dadas {
     type: left_outer
-    sql_on: ${f_aulas_dadas.codturma} = ${main.codturma} ;;
+    sql_on: ${f_aulas_dadas.codturma} = ${d_rls.codturma} ;;
     relationship: many_to_one
   }
-  join: f_presenca_turma_off {
+  join: f_presenca_turma {
     type: left_outer
-    sql_on: ${f_presenca_turma_off.cod_turma} = ${main.codturma} ;;
+    sql_on: ${f_presenca_turma.cod_turma} = ${d_rls.codturma} ;;
     relationship: many_to_one
   }
   join: d_matriculas {
     type: left_outer
-    sql_on: ${d_matriculas.codturma} = ${main.codturma} ;;
+    sql_on: ${d_matriculas.codturma} = ${d_rls.codturma} ;;
     relationship: many_to_one
   }
   join: f_amparo_legal {
@@ -56,5 +57,17 @@ explore: main {
     type: left_outer
     sql_on: ${f_presenca_alunos.cgmkey} = ${d_matriculas.cgmkey} ;;
     relationship: many_to_many
+  }
+  join: d_semana_ano {
+    from: d_calendario
+    type: left_outer
+    sql_on: ${f_aulas_dadas.semana_ano} = ${d_semana_ano.semana_do_ano} ;;
+    relationship: many_to_many
+  }
+  join: d_data_fim {
+    from: d_calendario
+    type: left_outer
+    sql_on: ${f_amparo_legal.datafim} = ${d_data_fim.data_date} ;;
+    relationship: many_to_one
   }
 }

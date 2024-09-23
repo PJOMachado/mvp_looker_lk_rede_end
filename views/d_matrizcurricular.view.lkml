@@ -1,5 +1,5 @@
 view: d_matrizcurricular {
-  sql_table_name: `Datalake.dMatrizcurricular` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dMatrizcurricular` ;;
 
   dimension: chsemanaldisciplina {
     type: number

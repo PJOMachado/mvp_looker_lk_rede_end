@@ -1,5 +1,5 @@
 view: d_turmas {
-  sql_table_name: `Datalake.dTurmas` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dTurmas` ;;
 
   dimension: codetapamodalidade {
     type: number

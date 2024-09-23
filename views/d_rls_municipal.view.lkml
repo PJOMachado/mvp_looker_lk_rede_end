@@ -1,5 +1,5 @@
 view: d_rls_municipal {
-  sql_table_name: `Datalake.dRLS_Municipal` ;;
+  sql_table_name: `mpv-looker-rede-municipal.Datalake.dRLS_Municipal` ;;
 
   dimension: codmec {
     type: number
