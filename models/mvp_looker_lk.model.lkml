@@ -14,14 +14,6 @@ datagroup: mvp_looker_datagroup {
     END AS day_of_week ;;
   max_cache_age: "10 hour"
 }
-explore: main {
-  label: "dash"
-  join: main_et2 {
-    type: left_outer
-    sql_on: ${main.nomemunicipio40} = ${main_et2.nomemunicipio40} ;;
-    relationship: one_to_many
-  }
-}
 
 explore: d_rls {
   persist_with: mvp_looker_datagroup
@@ -53,13 +45,13 @@ explore: d_rls {
   }
   join: f_presenca_turma {
     type: left_outer
-    sql_on: ${d_rls.codturma} = ${f_presenca_turma.cod_turma} ;;
+    sql_on: ${f_presenca_turma.cod_turma} = ${d_rls.codturma} ;;
     relationship: many_to_one
   }
   join: d_matriculas {
     type: left_outer
-    sql_on: ${d_rls.codturma} = ${d_matriculas.codturma}  ;;
-    relationship: one_to_many
+    sql_on: ${d_matriculas.codturma} = ${d_rls.codturma}  ;;
+    relationship: many_to_one
   }
   join: f_amparo_legal {
     type: left_outer
@@ -73,7 +65,7 @@ explore: d_rls {
   }
   join: d_calendario {
     type: left_outer
-    sql_on: ${f_aulas_dadas.semana_ano} = ${d_calendario.semana_do_ano} ;;
+    sql_on: ${f_presenca_turma.semana_ano} = ${d_calendario.semana_do_ano} ;;
     relationship: many_to_many
   }
 }
