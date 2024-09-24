@@ -4,11 +4,24 @@ connection: "mvp_looker"
 include: "/views/**/*.view.lkml"
 
 datagroup: mvp_looker_datagroup {
-  sql_trigger: SELECT (EXTRACT(DAY_OF_WEEK FROM NOW())) WHERE DAY_OF_WEEK(NOW()) IN (1,2,3,4,5) AND HOUR(NOW()) - 3 IN(8) ;; #Recriara a PDT nos horários definidos.
+  sql_trigger:
+  SELECT
+    CASE
+      WHEN EXTRACT(DAYOFWEEK FROM TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 3 HOUR)) BETWEEN 2 AND 6
+      AND EXTRACT(HOUR FROM TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 3 HOUR)) = 8
+      THEN EXTRACT(DAYOFWEEK FROM TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 3 HOUR))
+      ELSE NULL
+    END AS day_of_week ;;
   max_cache_age: "10 hour"
 }
-
-explore: teste {}
+explore: main {
+  label: "dash"
+  join: main_et2 {
+    type: left_outer
+    sql_on: ${main.nomemunicipio40} = ${main_et2.nomemunicipio40} ;;
+    relationship: one_to_many
+  }
+}
 
 explore: d_rls {
   persist_with: mvp_looker_datagroup
@@ -40,13 +53,13 @@ explore: d_rls {
   }
   join: f_presenca_turma {
     type: left_outer
-    sql_on: ${f_presenca_turma.cod_turma} = ${d_rls.codturma} ;;
+    sql_on: ${d_rls.codturma} = ${f_presenca_turma.cod_turma} ;;
     relationship: many_to_one
   }
   join: d_matriculas {
     type: left_outer
-    sql_on: ${d_matriculas.codturma} = ${d_rls.codturma} ;;
-    relationship: many_to_one
+    sql_on: ${d_rls.codturma} = ${d_matriculas.codturma}  ;;
+    relationship: one_to_many
   }
   join: f_amparo_legal {
     type: left_outer
@@ -58,16 +71,9 @@ explore: d_rls {
     sql_on: ${f_presenca_alunos.cgmkey} = ${d_matriculas.cgmkey} ;;
     relationship: many_to_many
   }
-  join: d_semana_ano {
-    from: d_calendario
+  join: d_calendario {
     type: left_outer
-    sql_on: ${f_aulas_dadas.semana_ano} = ${d_semana_ano.semana_do_ano} ;;
+    sql_on: ${f_aulas_dadas.semana_ano} = ${d_calendario.semana_do_ano} ;;
     relationship: many_to_many
-  }
-  join: d_data_fim {
-    from: d_calendario
-    type: left_outer
-    sql_on: ${f_amparo_legal.datafim} = ${d_data_fim.data_date} ;;
-    relationship: many_to_one
   }
 }
