@@ -16,4 +16,8 @@ view: f_aulas_dadas {
   measure: count {
     type: count
   }
+  dimension: primary_key {
+    type: string
+    sql: concat(${TABLE}.codturma,${TABLE}.SemanaAno) ;;
+  }
 }
