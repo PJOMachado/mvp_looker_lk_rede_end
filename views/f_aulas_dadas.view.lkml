@@ -17,7 +17,12 @@ view: f_aulas_dadas {
     type: count
   }
   dimension: primary_key {
+    primary_key: yes
     type: string
     sql: concat(${TABLE}.codturma,${TABLE}.SemanaAno) ;;
+  }
+  measure: aulas_dadas {
+    type: sum
+    sql:  ${TABLE}.TAulasDadas ;;
   }
 }

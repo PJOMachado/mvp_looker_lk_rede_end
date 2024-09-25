@@ -38,14 +38,9 @@ explore: d_rls {
     sql_on: ${d_matrizcurricular.coddisciplina} = ${d_disciplina.coddisciplina} ;;
     relationship: many_to_one
   }
-  join: f_aulas_dadas {
+  join: f_aulasd_presencat {
     type: left_outer
-    sql_on: ${f_aulas_dadas.codturma} = ${d_rls.codturma} ;;
-    relationship: many_to_one
-  }
-  join: f_presenca_turma {
-    type: left_outer
-    sql_on: ${f_presenca_turma.cod_turma} = ${d_rls.codturma} ;;
+    sql_on: ${f_aulasd_presencat.cod_turma} = ${d_rls.codturma};;
     relationship: many_to_one
   }
   join: d_matriculas {
@@ -61,11 +56,6 @@ explore: d_rls {
   join: f_presenca_alunos {
     type: left_outer
     sql_on: ${f_presenca_alunos.cgmkey} = ${d_matriculas.cgmkey} ;;
-    relationship: many_to_many
-  }
-  join: d_calendario {
-    type: left_outer
-    sql_on: ${f_presenca_turma.semana_ano} = ${d_calendario.semana_do_ano} ;;
     relationship: many_to_many
   }
 }
