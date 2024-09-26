@@ -16,9 +16,9 @@ view: f_presenca_turma {
   measure: count {
     type: count
   }
-  measure: presenca_turma {
+  measure: presenca {
     type: number
-    sql: avg(med) / 100 ;;
     value_format_name: percent_2
+    sql: avg(${TABLE}.Med) / 100 ;;
   }
 }

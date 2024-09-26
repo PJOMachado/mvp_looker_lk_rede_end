@@ -21,8 +21,4 @@ view: f_aulas_dadas {
     type: string
     sql: concat(${TABLE}.codturma,${TABLE}.SemanaAno) ;;
   }
-  measure: aulas_dadas {
-    type: sum
-    sql:  ${TABLE}.TAulasDadas ;;
-  }
 }

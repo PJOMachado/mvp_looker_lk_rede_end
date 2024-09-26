@@ -6,11 +6,11 @@ view: f_amparo_legal {
     sql: ${TABLE}.Amparo_Legal_QTD ;;
   }
   dimension: cgmkey {
-    primary_key: yes
     type: string
     sql: ${TABLE}.cgmkey ;;
   }
   dimension: codturma {
+    #primary_key: yes
     type: number
     sql: ${TABLE}.codturma ;;
   }
@@ -34,8 +34,7 @@ view: f_amparo_legal {
     type: string
     sql: ${TABLE}.SemanaInicio ;;
   }
-  measure: amparo_legal {
-    type: sum
-    sql: ${TABLE}.Amparo_Legal_QTD ;;
+  measure: count {
+    type: count
   }
 }

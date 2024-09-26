@@ -29,9 +29,7 @@ view: d_matriculas {
     type: string
     sql: ${TABLE}.Turma ;;
   }
-  measure: alunos {
-    type: count_distinct
-    sql:${TABLE}.cgmaluno ;;
-    filters: [cgmaluno: "not null"]
+  measure: count {
+    type: count
   }
 }

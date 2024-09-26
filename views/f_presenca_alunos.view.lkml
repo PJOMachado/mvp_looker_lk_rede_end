@@ -1,25 +1,59 @@
 view: f_presenca_alunos {
   sql_table_name: `mpv-looker-rede-municipal.Datalake.fPresencaAlunos` ;;
 
-  dimension: cgmkey {
+  dimension: cgm {
     type: string
-    sql: ${TABLE}.cgmkey ;;
+    sql: ${TABLE}.Cgm ;;
   }
-  dimension: med_atual {
+  dimension: cod_mec {
     type: number
-    sql: ${TABLE}.MedAtual ;;
+    sql: ${TABLE}.CodMec ;;
   }
-  dimension: med_passada {
+  dimension: cod_turma {
     type: number
-    sql: ${TABLE}.MedPassada ;;
+    sql: ${TABLE}.CodTurma ;;
   }
-  dimension: semana_atual {
-    type: number
-    sql: ${TABLE}.SemanaAtual ;;
+  dimension: copy_sunday {
+    type: yesno
+    sql: ${TABLE}.CopySunday ;;
   }
-  dimension: semana_passada {
+  dimension_group: created {
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year]
+    sql: ${TABLE}.CreatedAt ;;
+  }
+  dimension_group: data_aula {
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year]
+    sql: ${TABLE}.DataAula ;;
+  }
+  dimension: is_deleted {
+    type: yesno
+    sql: ${TABLE}.IsDeleted ;;
+  }
+  dimension: num_matricula {
     type: number
-    sql: ${TABLE}.SemanaPassada ;;
+    sql: ${TABLE}.NumMatricula ;;
+  }
+  dimension: periodo_letivo {
+    type: string
+    sql: ${TABLE}.PeriodoLetivo ;;
+  }
+  dimension: semana_ano {
+    type: number
+    sql: ${TABLE}.SemanaAno ;;
+  }
+  dimension: total_aulas {
+    type: number
+    sql: ${TABLE}.TotalAulas ;;
+  }
+  dimension: total_faltas {
+    type: number
+    sql: ${TABLE}.TotalFaltas ;;
+  }
+  dimension: total_presenca {
+    type: number
+    sql: ${TABLE}.TotalPresenca ;;
   }
   measure: count {
     type: count
