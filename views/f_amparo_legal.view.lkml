@@ -10,7 +10,6 @@ view: f_amparo_legal {
     sql: ${TABLE}.cgmkey ;;
   }
   dimension: codturma {
-    #primary_key: yes
     type: number
     sql: ${TABLE}.codturma ;;
   }

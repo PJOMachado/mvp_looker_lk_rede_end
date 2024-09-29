@@ -36,6 +36,7 @@ view: rls {
       datagroup_trigger: mvp_looker_datagroup
   }
 
+  #suggestions: no
   measure: count {
     type: count
     drill_fields: [detail*]
