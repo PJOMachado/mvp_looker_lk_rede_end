@@ -37,10 +37,6 @@ view: rls {
   }
 
   #suggestions: no
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
   dimension: email {
     type: string

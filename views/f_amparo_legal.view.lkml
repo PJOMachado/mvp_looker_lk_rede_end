@@ -36,4 +36,9 @@ view: f_amparo_legal {
   measure: count {
     type: count
   }
+  dimension: key {
+    type: string
+    primary_key: yes
+    sql: concat(${TABLE}.cgmkey,${TABLE}.datafim) ;;
+  }
 }

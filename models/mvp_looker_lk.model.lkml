@@ -14,15 +14,83 @@ datagroup: mvp_looker_datagroup {
     END AS day_of_week ;;
   max_cache_age: "10 hour"
 }
+explore: main {
+  persist_with: mvp_looker_datagroup
+  label: "Main"
+  join: rls {
+    type: left_outer
+    sql_on:
+      case
+        when ${rls.nivel} = 3 then ${rls.codmec} = ${main.codnucleoregional}
+        else ${rls.codmec} = ${main.codmec}
+      end ;;
+    relationship: many_to_one
+    }
+  join: d_calendario {
+    type: left_outer
+    sql_on: ${main.semana_ano} = ${d_calendario.semana_do_ano} ;;
+    relationship: many_to_one
+    }
+}
 
-explore: rls {
-  join: d_turmas {
+
+
+
+
+
+
+explore: d_turmas {
+  persist_with: mvp_looker_datagroup
+  label: "Rede"
+  join: rls {
+    type: left_outer
     sql_on:
       case
         when ${rls.nivel} = 3 then ${rls.codmec} = ${d_turmas.codnucleoregional}
         else ${rls.codmec} = ${d_turmas.codmec}
       end ;;
-    relationship: many_to_one
-    type: left_outer
-  }
+    relationship: one_to_many
+    }
+    join: d_modalidade {
+      type: left_outer
+      sql_on: ${d_turmas.codmodalidade} = ${d_modalidade.codmodalidade} ;;
+      relationship: many_to_one
+    }
+    join: d_etapa_modalidade {
+      type: left_outer
+      sql_on: ${d_turmas.codetapamodalidade} = ${d_etapa_modalidade.codetapamodalidade} ;;
+      relationship: many_to_one
+    }
+    join: d_matrizcurricular {
+      type: left_outer
+      sql_on: ${d_matrizcurricular.codmatriz} = ${d_turmas.codmatriz} ;;
+      relationship: one_to_many
+    }
+    join: d_disciplina {
+      type: left_outer
+      sql_on: ${d_matrizcurricular.coddisciplina} = ${d_disciplina.coddisciplina} ;;
+      relationship: many_to_one
+    }
+    join: d_matriculas {
+      type: left_outer
+      sql_on: ${d_matriculas.codturma} =  ${d_turmas.codturma} ;;
+      relationship: one_to_many
+    }
+    join: f_main {
+      type: left_outer
+      sql_on: ${f_main.codturma} = ${d_turmas.codturma}  ;;
+      relationship: one_to_many
+    }
+    join: d_calendario {
+      type: left_outer
+      sql_on: ${d_calendario.semana_do_ano} = ${f_main.semana_ano} ;;
+      relationship: many_to_many
+    }
+
+
+
+
+
+
+
 }
