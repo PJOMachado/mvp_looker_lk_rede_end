@@ -51,6 +51,16 @@ explore: d_turmas {
       end ;;
     relationship: one_to_many
     }
+  join: f_main {
+    type: inner
+    sql_on: ${d_turmas.codturma} = ${f_main.codturma}  ;;
+    relationship: many_to_one
+  }
+  join: d_matriculas {
+    type: left_outer
+    sql_on: ${d_matriculas.codturma} = ${d_turmas.codturma} ;;
+    relationship: many_to_one
+  }
     join: d_modalidade {
       type: left_outer
       sql_on: ${d_turmas.codmodalidade} = ${d_modalidade.codmodalidade} ;;
@@ -71,26 +81,15 @@ explore: d_turmas {
       sql_on: ${d_matrizcurricular.coddisciplina} = ${d_disciplina.coddisciplina} ;;
       relationship: many_to_one
     }
-    join: d_matriculas {
-      type: left_outer
-      sql_on: ${d_matriculas.codturma} =  ${d_turmas.codturma} ;;
-      relationship: one_to_many
-    }
-    join: f_main {
-      type: left_outer
-      sql_on: ${f_main.codturma} = ${d_turmas.codturma}  ;;
-      relationship: one_to_many
-    }
-    join: d_calendario {
-      type: left_outer
-      sql_on: ${d_calendario.semana_do_ano} = ${f_main.semana_ano} ;;
-      relationship: many_to_many
-    }
+}
 
 
-
-
-
-
-
+explore: f_main {
+  persist_with: mvp_looker_datagroup
+  label: "Teste"
+  join: d_calendario {
+    type: inner
+    sql_on: ${f_main.semana_ano} = ${d_calendario.semana_do_ano} ;;
+    relationship: many_to_many
+  }
 }

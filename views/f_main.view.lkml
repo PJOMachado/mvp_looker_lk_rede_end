@@ -1,16 +1,26 @@
 
 view: f_main {
   derived_table: {
-    sql: select
+    sql:
+      select
         a.Codturma,
         a.SemanaAno,
         a.Med,
         b.TAulasDadas,
+        dc.SEMANA_LETIVA,
         sum(c.Amparo_Legal_QTD) as amparo
       from mpv-looker-rede-municipal.Datalake.fPresenca_Turma as a
       left join mpv-looker-rede-municipal.Datalake.fAulasDadas as b on a.CodTurma = b.codturma and a.SemanaAno = b.SemanaAno
       left join mpv-looker-rede-municipal.Datalake.fAmparoLegal as c on a.CodTurma = c.codturma and a.SemanaAno = extract(week from cast(c.datafim as date))
-      group by 1,2,3,4 ;;
+      left join
+      (
+        select
+          distinct
+          SEMANA_DO_ANO,
+          SEMANA_LETIVA
+        from mpv-looker-rede-municipal.Datalake.dCalendario
+      ) as dc on a.SemanaAno = dc.SEMANA_DO_ANO
+      group by 1,2,3,4,5 ;;
       datagroup_trigger: mvp_looker_datagroup
   }
 
@@ -43,6 +53,10 @@ view: f_main {
     type: number
     sql: ${TABLE}.amparo ;;
   }
+  dimension: semana_letiva {
+    type: string
+    sql: ${TABLE}.SEMANA_LETIVA ;;
+  }
   dimension: key {
     primary_key: yes
     type: string
@@ -52,9 +66,9 @@ view: f_main {
     type: number
     value_format_name: percent_2
     sql: case
-          when avg(${TABLE}.Med) = 0 then 0
-          else avg(${TABLE}.Med) / 100
-          end ;;
+            when avg(${TABLE}.Med) = 0 then 0
+            else avg(${TABLE}.Med) / 100
+         end;;
   }
 
   set: detail {
@@ -63,6 +77,7 @@ view: f_main {
   semana_ano,
   med,
   taulas_dadas,
+  semana_letiva,
   amparo
     ]
   }
