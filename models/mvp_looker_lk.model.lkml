@@ -14,24 +14,7 @@ datagroup: mvp_looker_datagroup {
     END AS day_of_week ;;
   max_cache_age: "10 hour"
 }
-explore: main {
-  persist_with: mvp_looker_datagroup
-  label: "Main"
-  join: rls {
-    type: left_outer
-    sql_on:
-      case
-        when ${rls.nivel} = 3 then ${rls.codmec} = ${main.codnucleoregional}
-        else ${rls.codmec} = ${main.codmec}
-      end ;;
-    relationship: many_to_one
-    }
-  join: d_calendario {
-    type: left_outer
-    sql_on: ${main.semana_ano} = ${d_calendario.semana_do_ano} ;;
-    relationship: many_to_one
-    }
-}
+
 
 
 
@@ -55,6 +38,11 @@ explore: d_turmas {
     type: inner
     sql_on: ${d_turmas.codturma} = ${f_main.codturma}  ;;
     relationship: many_to_one
+  }
+  join: d_calendario {
+    type: inner
+    sql_on: ${f_main.semana_ano} = ${d_calendario.semana_do_ano} ;;
+    relationship: many_to_many
   }
   join: d_matriculas {
     type: left_outer

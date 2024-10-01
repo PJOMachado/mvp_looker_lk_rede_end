@@ -16,4 +16,12 @@ view: f_presenca_turma {
   measure: count {
     type: count
   }
+  measure: presenca {
+    type: number
+    value_format_name: percent_1
+    sql: case
+            when avg(${TABLE}.Med) = 0 then 0
+            else avg(${TABLE}.Med) / 100
+         end;;
+  }
 }
