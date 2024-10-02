@@ -13,13 +13,12 @@ view: f_aulas_dadas {
     type: number
     sql: ${TABLE}.TAulasDadas ;;
   }
-  measure: aulas_dadas {
-    type: sum_distinct
-    sql: ${TABLE}.TAulasDadas ;;
-  }
-  dimension: key {
+  dimension: primary_key {
+    primary_key: yes
     type: string
-    #primary_key: yes
     sql: concat(${TABLE}.codturma,${TABLE}.SemanaAno) ;;
+  }
+  measure: count {
+    type: count
   }
 }

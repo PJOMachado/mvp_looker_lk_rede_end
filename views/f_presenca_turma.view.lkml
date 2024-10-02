@@ -13,6 +13,11 @@ view: f_presenca_turma {
     type: number
     sql: ${TABLE}.SemanaAno ;;
   }
+  dimension: primary_key {
+    primary_key: yes
+    type: string
+    sql: concat(${TABLE}.CodTurma,${TABLE}.SemanaAno) ;;
+  }
   measure: count {
     type: count
   }
