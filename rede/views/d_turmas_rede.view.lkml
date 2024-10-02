@@ -1,7 +1,8 @@
 
   view: d_turmas_rede {
   derived_table: {
-    sql: select
+    sql:
+      select
         dt.*,
         dm.descrmodalidade,
         de.descretapamodalidade
@@ -24,6 +25,7 @@
   }
 
   dimension: codturma {
+    primary_key: yes
     type: number
     sql: ${TABLE}.codturma ;;
   }

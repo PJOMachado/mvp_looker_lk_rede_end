@@ -85,7 +85,7 @@ view: f_medidas_rede {
   dimension: primary_key {
     primary_key: yes
     type: string
-    sql: concat(${TABLE}.coturma,${TABLE}.semanaano) ;;
+    sql: concat(${TABLE}.coturma,${TABLE}.semanaano,${TABLE}.med,${TABLE}.aulasdadas) ;;
   }
   measure: presenca {
     type: number
@@ -104,8 +104,9 @@ view: f_medidas_rede {
     sql: ${TABLE}.amparo  ;;
   }
   measure: s_alunos {
-    type: number
-    sql: (select sum(${TABLE}.alunos) from ${TABLE} where ${TABLE}.key_alunos = 1) ;;
+    type: sum
+    sql: ${TABLE}.alunos ;;
+    filters: [key_alunos: "1"]
   }
 
   set: detail {
