@@ -31,7 +31,7 @@ view: f_medidas_rede {
         fa.TAulasDadas as aulasdadas,
         am.amparo,
         al.alunos,
-        row_number() over(partition by concat(fp.CodTurma,fp.SemanaAno,al.alunos)) as key_alunos
+        row_number() over(partition by concat(al.codturma,al.alunos)) as key_alunos
       from mpv-looker-rede-municipal.Datalake.fPresenca_Turma as fp
       full join mpv-looker-rede-municipal.Datalake.fAulasDadas as fa
         on fp.CodTurma = fa.codturma
