@@ -103,6 +103,10 @@ view: f_medidas_rede {
     type: sum
     sql: ${TABLE}.amparo  ;;
   }
+  measure: s_alunos {
+    type: number
+    sql: (select sum(${TABLE}.alunos) from ${TABLE} where ${TABLE}.key_alunos = 1) ;;
+  }
 
   set: detail {
     fields: [
