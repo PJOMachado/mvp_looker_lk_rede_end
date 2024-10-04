@@ -133,9 +133,10 @@ view: d_turmas_end {
   }
 
   measure: total_alunos {
-    type: number #sum_distinct
-    #sql_distinct_key: ${TABLE}.nomemunicipio40 ;;
-    sql: (select sum(far.alunos) from ${TABLE} as far) ;;
+    type: sum_distinct #number
+    sql_distinct_key: ${TABLE}.codturma ;;
+    sql: ${TABLE}.alunos --(select sum(far.alunos) from ${TABLE} as far)
+    ;;
   }
 
   dimension: key {
