@@ -16,6 +16,8 @@ datagroup: rede_datagroup_end {
 }
 
 explore: f_medidas_end {
+  persist_with: rede_datagroup_end
+  label: "Rede main"
   join: d_turmas_end {
     type: left_outer
     sql_on: ${f_medidas_end.codturma} = ${d_turmas_end.codturma} ;;
