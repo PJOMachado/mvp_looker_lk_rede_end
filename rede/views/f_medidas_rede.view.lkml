@@ -104,9 +104,8 @@ view: f_medidas_rede {
     sql: ${TABLE}.amparo  ;;
   }
   measure: s_alunos {
-    type: sum
-    sql: ${TABLE}.alunos ;;
-    filters: [key_alunos: "1"]
+    type: number
+    sql: (select sum(far.alunos) from ${TABLE} as far where key_alunos = 1) ;;
   }
 
   set: detail {

@@ -1,7 +1,8 @@
 connection: "mvp_looker"
 
 
-include: "/rede/**/*.view.lkml"
+include: "/rede/views/*.view.lkml"
+
 
 datagroup: rede_datagroup {
   sql_trigger:
@@ -44,28 +45,11 @@ explore: f_medidas_rede {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 explore: f_medidas_rede_v2 {
-  persist_with: rede_datagroup
-  label: "Redev2"
+  label: "Redev5"
   join: d_turmas_rede {
     type: left_outer
     sql_on: ${f_medidas_rede_v2.codturma} = ${d_turmas_rede.codturma} ;;
-    relationship: many_to_one
-  }
-  join: d_matriz_rede {
-    type: left_outer
-    sql_on: ${d_turmas_rede.codmatriz} = ${d_turmas_rede.codmatriz} ;;
     relationship: many_to_one
   }
   join: rls_rede {
@@ -77,9 +61,19 @@ explore: f_medidas_rede_v2 {
       end ;;
     relationship: many_to_one
   }
+  join: f_alunos_rede {
+    type: left_outer
+    sql_on: ${d_turmas_rede.codturma} = ${f_alunos_rede.codturma} ;;
+    relationship: one_to_one
+  }
+  join: f_amparo_rede {
+    type: left_outer
+    sql_on: ${d_turmas_rede.codturma} = ${f_amparo_rede.codturma} ;;
+    relationship: one_to_one
+  }
   join: d_calendario_rede {
     type: left_outer
-    sql_on: ${d_calendario_rede.semana_do_ano} ${f_medidas_rede_v2.semanaano} ;;
+    sql_on: ${d_calendario_rede.semana_do_ano} = ${f_medidas_rede_v2.semanaano} ;;
     relationship: many_to_many
   }
 }
