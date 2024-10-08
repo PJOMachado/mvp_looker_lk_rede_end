@@ -2,6 +2,7 @@ connection: "mvp_looker"
 
 
 include: "/rede/views_end/*.view.lkml"
+include: "/rede/views_end/turma/*.view.lkml"
 
 datagroup: rede_datagroup_end {
   sql_trigger:
@@ -41,5 +42,30 @@ explore: f_medidas_end {
     type: left_outer
     sql_on: ${d_matriz_end.codmatriz} = ${d_turmas_end.codmatriz} ;;
     relationship: many_to_one
+  }
+}
+
+
+explore: d_matriculas_end {
+  persist_with: rede_datagroup_end
+  label: "Turma main"
+  join: d_rls_end {
+    type: left_outer
+    sql_on:
+      case
+        when ${d_rls_end.nivel} = 3 then ${d_rls_end.codmec} = ${d_matriculas_end.codnucleoregional}
+        else ${d_rls_end.codmec} = ${d_matriculas_end.codmec}
+      end ;;
+    relationship: many_to_one
+  }
+  join: d_matriz_end {
+    type: left_outer
+    sql_on: ${d_matriz_end.codmatriz} = ${d_matriculas_end.codmatriz} ;;
+    relationship: many_to_one
+  }
+  join: f_presenca_alunos_turma {
+    type: left_outer
+    sql_on: ${d_matriculas_end.cgmkey} = ${f_presenca_alunos_turma.cgmkey} ;;
+    relationship: one_to_one
   }
 }
