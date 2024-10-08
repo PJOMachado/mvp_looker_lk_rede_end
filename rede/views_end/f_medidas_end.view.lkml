@@ -58,7 +58,7 @@ view: f_medidas_end {
         a.Amparo_Legal_QTD as amparo,
         0 as med,
         '' as chave,
-        row_number() over(partition by concat(a.codturma,a.cgmkey) order by d.SEMANA_DO_ANO desc) as key
+        row_number() over(partition by concat(a.codturma,a.cgmkey) order by a.datafim desc) as key
       from mpv-looker-rede-municipal.Datalake.fAmparoLegal as a
       left join mpv-looker-rede-municipal.Datalake.dCalendario as d
         on cast(a.datafim as date) = d.DATA
