@@ -43,5 +43,3 @@ explore: f_medidas_end {
     relationship: many_to_one
   }
 }
-
-explore: d_calendario {}
