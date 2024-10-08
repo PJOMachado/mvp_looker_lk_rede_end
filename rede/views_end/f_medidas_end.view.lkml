@@ -2,7 +2,6 @@
 view: f_medidas_end {
   derived_table: {
     sql:
-    /* Original:
     select
       codturma,
       SemanaAno as semanaano,
@@ -23,47 +22,6 @@ view: f_medidas_end {
     from mpv-looker-rede-municipal.Datalake.fAmparoLegal as a
     left join mpv-looker-rede-municipal.Datalake.dCalendario as d
       on cast(a.datafim as date) = d.DATA
-    union all
-    select
-      CodTurma as codturma,
-      SemanaAno as semanaano,
-      0 as aulas,
-      0 as amparo,
-      Med as med,
-      'md' as chave
-    from mpv-looker-rede-municipal.Datalake.fPresenca_Turma -- Fim do original */
-    select
-      codturma,
-      SemanaAno as semanaano,
-      sum(TAulasDadas) as aulas,
-      0 as amparo,
-      0 as med,
-      '' as chave
-    from mpv-looker-rede-municipal.Datalake.fAulasDadas
-    group by 1,2
-    union all
-    select
-      codturma,
-      semanaano,
-      aulas,
-      amparo,
-      med,
-      chave
-    from
-    (
-      select
-        a.codturma,
-        d.SEMANA_DO_ANO as semanaano,
-        0 as aulas,
-        a.Amparo_Legal_QTD as amparo,
-        0 as med,
-        '' as chave,
-        row_number() over(partition by concat(a.codturma,a.cgmkey) order by a.datafim desc) as key
-      from mpv-looker-rede-municipal.Datalake.fAmparoLegal as a
-      left join mpv-looker-rede-municipal.Datalake.dCalendario as d
-        on cast(a.datafim as date) = d.DATA
-    )
-    where key = 1
     union all
     select
       CodTurma as codturma,
