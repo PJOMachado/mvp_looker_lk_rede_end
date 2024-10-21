@@ -17,6 +17,10 @@ datagroup: rede_datagroup_end {
 }
 
 explore: f_medidas_end {
+  access_filter: {
+    field: d_rls_end.email
+    user_attribute: email
+  }
   persist_with: rede_datagroup_end
   label: "Rede main"
   join: d_turmas_end {
@@ -47,6 +51,10 @@ explore: f_medidas_end {
 
 
 explore: d_matriculas_end {
+  access_filter: {
+    field: d_rls_end.email
+    user_attribute: email
+  }
   persist_with: rede_datagroup_end
   label: "Turma main"
   join: d_rls_end {

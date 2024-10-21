@@ -36,7 +36,7 @@ view: d_rls_end {
     datagroup_trigger: rede_datagroup_end
   }
 
-  suggestions: no
+  #suggestions: no
 
   dimension: email {
     type: string
