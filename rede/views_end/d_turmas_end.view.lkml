@@ -68,6 +68,20 @@ view: d_turmas_end {
   }
 
   dimension: nomemunicipio40 {
+    link: {
+      label: "Escola"
+      url: "/dashboards/31?CURSO={{ _filters['d_turmas_end.nomecursodet'] | url_encode }}&
+      ZONA={{ _filters['d_turmas_end.descrzona'] | url_encode }}&
+      TIPO+DE+ESCOLA={{ _filters['d_turmas_end.descrtipoestab'] | url_encode }}&
+      TURNO={{ _filters['d_turmas_end.descrturno'] | url_encode }}&
+      ETAPA={{ _filters['d_turmas_end.descretapamodalidade'] | url_encode }}&
+      NRE={{ _filters['d_turmas_end.nomenreabrev'] | url_encode }}&
+      MATRIZ+CURRICULAR={{ _filters['d_matriz_end.descrabrevcomposicao'] | url_encode }}&
+      MUNICÍPIO={{ value }}&
+      ESCOLA={{ _filters['d_turmas_end.escola'] | url_encode }}&
+      TURMA={{ _filters['d_turmas_end.turma'] | url_encode }}"
+      icon_url: "https://storage.googleapis.com/looker-imagens-seedpr/search.png"
+    }
     type: string
     sql: ${TABLE}.nomemunicipio40 ;;
   }
@@ -88,6 +102,20 @@ view: d_turmas_end {
   }
 
   dimension: turma {
+    link: {
+      label: "Análise por Turma"
+      url: "/dashboards/30?CURSO={{ _filters['d_turmas_end.nomecursodet'] | url_encode }}&
+      ZONA={{ _filters['d_turmas_end.descrzona'] | url_encode }}&
+      TIPO+DE+ESCOLA={{ _filters['d_turmas_end.descrtipoestab'] | url_encode }}&
+      TURNO={{ _filters['d_turmas_end.descrturno'] | url_encode }}&
+      ETAPA={{ _filters['d_turmas_end.descretapamodalidade'] | url_encode }}&
+      NRE={{ _filters['d_turmas_end.nomenreabrev'] | url_encode }}&
+      MATRIZ+CURRICULAR={{ _filters['d_matriz_end.descrabrevcomposicao'] | url_encode }}&
+      MUNICÍPIO={{ _filters['d_turmas_end.nomemunicipio40'] | url_encode }}&
+      ESCOLA={{ _filters['d_turmas_end.escola'] | url_encode }}&
+      TURMA={{ value }}"
+      icon_url: "https://storage.googleapis.com/looker-imagens-seedpr/search.png"
+    }
     type: string
     sql: ${TABLE}.Turma ;;
   }
