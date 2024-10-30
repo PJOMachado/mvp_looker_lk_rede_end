@@ -68,6 +68,21 @@ view: d_turmas_end {
   }
 
   dimension: nomemunicipio40 {
+    link: {
+      label: "Análise de Escola"
+      url: "/dashboards/31?CURSO={{ _filters['d_turmas_end.nomecursodet'] | url_encode }}&
+      ZONA={{ _filters['d_turmas_end.descrzona'] | url_encode }}&
+      TIPO+DE+ESCOLA={{ _filters['d_turmas_end.descrtipoestab'] | url_encode }}&
+      TURNO={{ _filters['d_turmas_end.descrturno'] | url_encode }}&
+      ETAPA={{ _filters['d_turmas_end.descretapamodalidade'] | url_encode }}&
+      NRE={{ _filters['d_turmas_end.nomenreabrev'] | url_encode }}&
+      MATRIZ+CURRICULAR={{ _filters['d_matriz_end.descrabrevcomposicao'] | url_encode }}&
+      MUNICIPIO={{ value }}&
+      SEMANA+LETIVA={{ _filters['d_calendario_end.semana_letiva'] | url_encode }}&
+      ESCOLA={{ _filters['d_turmas_end.escola'] | url_encode }}&
+      TURMA={{ _filters['d_turmas_end.turma'] | url_encode }}"
+      icon_url: "https://storage.googleapis.com/looker-imagens-seedpr/search.png"
+    }
     type: string
     sql: ${TABLE}.nomemunicipio40 ;;
   }
@@ -83,11 +98,40 @@ view: d_turmas_end {
   }
 
   dimension: escola {
+    link: {
+      label: "Análise de Turma"
+      url: "/dashboards/32?CURSO={{ _filters['d_turmas_end.nomecursodet'] | url_encode }}&
+      ZONA={{ _filters['d_turmas_end.descrzona'] | url_encode }}&
+      TIPO+DE+ESCOLA={{ _filters['d_turmas_end.descrtipoestab'] | url_encode }}&
+      TURNO={{ _filters['d_turmas_end.descrturno'] | url_encode }}&
+      ETAPA={{ _filters['d_turmas_end.descretapamodalidade'] | url_encode }}&
+      NRE={{ _filters['d_turmas_end.nomenreabrev'] | url_encode }}&
+      MATRIZ+CURRICULAR={{ _filters['d_matriz_end.descrabrevcomposicao'] | url_encode }}&
+      MUNICIPIO={{ _filters['d_turmas_end.nomemunicipio40'] | url_encode }}&
+      SEMANA+LETIVA={{ _filters['d_calendario_end.semana_letiva'] | url_encode }}&
+      ESCOLA={{ filterable_value }}&
+      TURMA={{ _filters['d_turmas_end.turma'] | url_encode }}"
+      icon_url: "https://storage.googleapis.com/looker-imagens-seedpr/search.png"
+    }
     type: string
     sql: ${TABLE}.Escola ;;
   }
 
   dimension: turma {
+    link: {
+      label: "Análise de Alunos"
+      url: "/dashboards/30?CURSO={{ _filters['d_turmas_end.nomecursodet'] | url_encode }}&
+      ZONA={{ _filters['d_turmas_end.descrzona'] | url_encode }}&
+      TIPO+DE+ESCOLA={{ _filters['d_turmas_end.descrtipoestab'] | url_encode }}&
+      TURNO={{ _filters['d_turmas_end.descrturno'] | url_encode }}&
+      ETAPA={{ _filters['d_turmas_end.descretapamodalidade'] | url_encode }}&
+      NRE={{ _filters['d_turmas_end.nomenreabrev'] | url_encode }}&
+      MATRIZ+CURRICULAR={{ _filters['d_matriz_end.descrabrevcomposicao'] | url_encode }}&
+      MUNICIPIO={{ _filters['d_turmas_end.nomemunicipio40'] | url_encode }}&
+      ESCOLA={{ _filters['d_turmas_end.escola'] | url_encode }}&
+      TURMA={{ filterable_value }}"
+      icon_url: "https://storage.googleapis.com/looker-imagens-seedpr/search.png"
+    }
     type: string
     sql: ${TABLE}.Turma ;;
   }
