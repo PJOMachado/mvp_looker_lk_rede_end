@@ -3,6 +3,7 @@ connection: "mvp_looker"
 
 include: "/rede/views_end/*.view.lkml"
 include: "/rede/views_end/turma/*.view.lkml"
+include: "/dashboard/*.dashboard.lookml"
 
 datagroup: rede_datagroup_end {
   sql_trigger:

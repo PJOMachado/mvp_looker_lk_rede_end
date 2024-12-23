@@ -1,4 +1,4 @@
-- dashboard: rede
+- dashboard: rede_v2
   title: REDE
   layout: newspaper
   preferred_viewer: dashboards-next
